@@ -21,6 +21,9 @@
 		71C589FB2BDAF77D00888608 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C589FA2BDAF77D00888608 /* Enum.swift */; };
 		71C589FD2BDB018100888608 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C589FC2BDB018100888608 /* HomeView.swift */; };
 		71C589FF2BDB976D00888608 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C589FE2BDB976D00888608 /* RecipeDetailView.swift */; };
+		71D289572BDBD27D003E8FD9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D289562BDBD27D003E8FD9 /* APIManager.swift */; };
+		71D289592BDBD450003E8FD9 /* APIRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D289582BDBD450003E8FD9 /* APIRecipe.swift */; };
+		71D2895C2BDBD491003E8FD9 /* OptionallyDecodable in Frameworks */ = {isa = PBXBuildFile; productRef = 71D2895B2BDBD491003E8FD9 /* OptionallyDecodable */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,8 @@
 		71C589FA2BDAF77D00888608 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		71C589FC2BDB018100888608 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		71C589FE2BDB976D00888608 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		71D289562BDBD27D003E8FD9 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		71D289582BDBD450003E8FD9 /* APIRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRecipe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71D2895C2BDBD491003E8FD9 /* OptionallyDecodable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,9 +85,11 @@
 				71C589DF2BDAF32300888608 /* ContentView.swift */,
 				71C589ED2BDAF46900888608 /* Helper.swift */,
 				71C589EF2BDAF4C900888608 /* Recipe.swift */,
+				71D289582BDBD450003E8FD9 /* APIRecipe.swift */,
 				71C589EB2BDAF36900888608 /* CardRecipeRow.swift */,
 				71C589FC2BDB018100888608 /* HomeView.swift */,
 				717481692BDBAD3E007AB546 /* PickerVCWrapper.swift */,
+				71D289562BDBD27D003E8FD9 /* APIManager.swift */,
 				71C589FE2BDB976D00888608 /* RecipeDetailView.swift */,
 				71C589F12BDAF4EE00888608 /* ViewModel.swift */,
 				71C589F82BDAF72200888608 /* Extension.swift */,
@@ -121,6 +129,9 @@
 			dependencies = (
 			);
 			name = "Recipe API App";
+			packageProductDependencies = (
+				71D2895B2BDBD491003E8FD9 /* OptionallyDecodable */,
+			);
 			productName = "Recipe API App";
 			productReference = 71C589DA2BDAF32300888608 /* Recipe API App.app */;
 			productType = "com.apple.product-type.application";
@@ -149,6 +160,9 @@
 				Base,
 			);
 			mainGroup = 71C589D12BDAF32300888608;
+			packageReferences = (
+				71D2895A2BDBD491003E8FD9 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */,
+			);
 			productRefGroup = 71C589DB2BDAF32300888608 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -183,8 +197,10 @@
 				71C589F92BDAF72200888608 /* Extension.swift in Sources */,
 				71C589DE2BDAF32300888608 /* Recipe_API_AppApp.swift in Sources */,
 				71C589EE2BDAF46900888608 /* Helper.swift in Sources */,
+				71D289592BDBD450003E8FD9 /* APIRecipe.swift in Sources */,
 				7174816A2BDBAD3E007AB546 /* PickerVCWrapper.swift in Sources */,
 				717481682BDBA8CC007AB546 /* PickerVC.swift in Sources */,
+				71D289572BDBD27D003E8FD9 /* APIManager.swift in Sources */,
 				71C589F22BDAF4EE00888608 /* ViewModel.swift in Sources */,
 				71C589F02BDAF4C900888608 /* Recipe.swift in Sources */,
 			);
@@ -392,6 +408,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71D2895A2BDBD491003E8FD9 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/idrougge/OptionallyDecodable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71D2895B2BDBD491003E8FD9 /* OptionallyDecodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71D2895A2BDBD491003E8FD9 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */;
+			productName = OptionallyDecodable;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71C589D22BDAF32300888608 /* Project object */;
 }

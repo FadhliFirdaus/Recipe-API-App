@@ -9,17 +9,33 @@ import SwiftUI
 
 struct CardRecipeRow: View {
     @State var recipe:Recipe
+    @State private var imageData: Data?
     var size:CGFloat = 120
+
     var body: some View {
         ZStack{
             GeometryReader{ reader in
-                Image("\(recipe.image)")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: sw/2.5, height:size )
-                    .mask {
-                        UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
+                if(isValidURLString(recipe.image)){
+                    if let imageData = imageData, let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } else {
+                        Text("Loading...")
+                            .onAppear(perform: loadImage)
                     }
+                } else {
+                    Image("\(recipe.image)")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: sw/2.5, height:size )
+                        .mask {
+                            UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
+                                .onAppear(perform: {
+                                    print("not valid\(recipe.image)")
+                                })
+                        }
+                }
                 HStack {
                     Spacer()
                     ZStack {
@@ -72,6 +88,28 @@ struct CardRecipeRow: View {
         
         .padding([.leading, .trailing], 12)
 
+    }
+    
+    
+    func loadImage() {
+        if let imageURL = URL(string: recipe.image){
+            URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                guard let data = data else {
+                    print("Failed to fetch image: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.imageData = data
+                }
+            }.resume()
+        }
+    }
+    
+    func isValidURLString(_ urlString: String) -> Bool {
+        if let url = URL(string: urlString) {
+            return UIApplication.shared.canOpenURL(url)
+        }
+        return false
     }
 }
 

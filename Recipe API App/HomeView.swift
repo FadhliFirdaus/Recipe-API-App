@@ -29,8 +29,7 @@ struct HomeView: View {
                             Spacer()
                             NavigationLink {
                                 PickerVCWrapper()
-                                    .navigationTitle("Filter Type Settings")
-
+                                    .navigationTitle("Datasource Settings")
                             } label: {
                                 
                                 Image(systemName: "ellipsis")
@@ -67,6 +66,7 @@ struct HomeView: View {
                                     }
                                 })
                                 .onSubmit {
+                                    viewModel.fetchFilteredData(filterString: searchText, completion: {})
                                     isTextFieldFocused = false
                                 }
                                 .submitLabel(.done)
