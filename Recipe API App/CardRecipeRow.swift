@@ -19,7 +19,12 @@ struct CardRecipeRow: View {
                     if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .scaleEffect(1.5)
+                            .frame(width: sw/2.5, height:size )
+                            .mask {
+                                UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
+                            }
                     } else {
                         Text("Loading...")
                             .onAppear(perform: loadImage)
@@ -31,9 +36,6 @@ struct CardRecipeRow: View {
                         .frame(width: sw/2.5, height:size )
                         .mask {
                             UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
-                                .onAppear(perform: {
-                                    print("not valid\(recipe.image)")
-                                })
                         }
                 }
                 HStack {
@@ -44,14 +46,16 @@ struct CardRecipeRow: View {
                             Text("\(recipe.name)")
                                 .fontWeight(.bold)
                                 .lineLimit(1)
-                                .customFont(.georgia, size: 16)
-                                .fixedSize()
+                                .truncationMode(.tail) // Truncates text at the end
+                                .customFont(.georgia, size: 15)
                                 .background {
                                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 6, bottomLeading: 0, bottomTrailing: 0, topTrailing: 12))
                                         .foregroundColor(.white)
                                         .scaleEffect(1.2)
                                 }
                                 .offset(x: sw/10)
+                                .frame(maxWidth: sw/1.25)
+
                         }
                     }
                 }
@@ -85,9 +89,7 @@ struct CardRecipeRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(Color(hex: 0xFFFFFF))
         }
-        
         .padding([.leading, .trailing], 12)
-
     }
     
     

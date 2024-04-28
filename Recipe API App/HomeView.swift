@@ -25,24 +25,42 @@ struct HomeView: View {
                             Spacer()
                         }
                         .padding(12)
-                        HStack{
-                            Spacer()
-                            NavigationLink {
-                                PickerVCWrapper()
-                                    .navigationTitle("Datasource Settings")
-                            } label: {
-                                
-                                Image(systemName: "ellipsis")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(12)
-                                    .frame(width: 40, height: 40, alignment: .center)
-                                    .background(RoundedRectangle(cornerRadius: 12)
-                                        .stroke(lineWidth: 1)
-                                        .foregroundColor(Color(hex: 0xE8E6EC)))
+                        Button(action: {
+                        }) {
+                            NavigationLink(destination:PickerVCWrapper().navigationTitle("Datasource Type Settings")
+                            ) {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "ellipsis")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(12)
+                                        .frame(width: 40, height: 40, alignment: .center)
+                                        .background(RoundedRectangle(cornerRadius: 12)
+                                            .stroke(lineWidth: 1)
+                                            .foregroundColor(Color(hex: 0xE8E6EC)))
+                                }
                             }
                             .padding(12)
                             .buttonStyle(PlainButtonStyle())
+                        }
+                        
+                        
+                        HStack{
+                            Image(systemName: "arrow.clockwise")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(12)
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .background(RoundedRectangle(cornerRadius: 12)
+                                    .stroke(lineWidth: 1)
+                                    .foregroundColor(Color(hex: 0xE8E6EC)))
+                                .padding(12)
+                                .buttonStyle(PlainButtonStyle())
+                            Spacer()
+                        }
+                        .onTapGesture {
+                            
                         }
                     }
                     
@@ -119,11 +137,7 @@ struct HomeView: View {
                 .frame(width: sw, height: sh + reader.safeAreaInsets.top , alignment: .top)
                 .background(Color(hex: 0xEFF0EF))
                 .onAppear(perform: {
-                    viewModel.fetchData {
-                        DispatchQueue.main.async {
-                            
-                        }
-                    }
+                    viewModel.fetchDataFromSetting()
                 })
             }
         }

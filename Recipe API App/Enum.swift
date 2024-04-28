@@ -14,3 +14,24 @@ enum CustomFontName: String {
     case georgiaItalic = "Georgia Italic"
     case georgia = "Georgia"
 }
+
+enum DataSourceType:CaseIterable {
+    case APIFetched
+    case hardcodedMockData
+    case savedCoreData
+    
+    var description: String {
+        switch self {
+        case .APIFetched:
+            return "API fetched data"
+        case .hardcodedMockData:
+            return "Hardcoded Mock Data"
+        case .savedCoreData:
+            return "Saved CoreData Data"
+        }
+    }
+    
+    static func fromString(_ string: String) -> DataSourceType? {
+        return DataSourceType.allCases.first { $0.description == string }
+    }
+}

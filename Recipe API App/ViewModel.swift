@@ -11,10 +11,9 @@ class ViewModel:ObservableObject {
     static let shared = ViewModel()
     
     @Published var datasource = [Recipe]()
-    @Published var recipeTypes = ["API fetched data", "Hardcoded Mock Data", "Saved CoreData Data"]
+    @Published var dataType:DataSourceType = .APIFetched
     
     init(){
-        fetchAPIData()
     }
     
     
@@ -45,7 +44,7 @@ class ViewModel:ObservableObject {
     
     
     
-    func fetchData(completion: @escaping () -> Void){
+    func fetchMockData(completion: @escaping () -> Void){
         DispatchQueue.global().asyncAfter(deadline: .now() + 0) {
             DispatchQueue.main.async {
                 self.datasource = self.mockRecipes
@@ -55,23 +54,55 @@ class ViewModel:ObservableObject {
     }
     
     func fetchAPIData(){
+        var fetchedData = [Recipe]()
+        var id = 0
         APIManager.fetchDataFromAPI { main, err in
             if(err == nil){
-                let item = main?.results?[0]
-                let apiRecipe = Recipe(
-                    id: 1,
-                    name: "\(main?.results?[0].name ?? "lasagna")",
-                    type: "\(main?.results?[0].tags?[0].name ?? "dessert")",
-                    image: item?.thumbnailURL ?? "lasagna",
-                    ingredients: item?.sections?[0].components?.compactMap { $0.ingredient?.displaySingular } ?? [],
-                    steps: item?.instructions?.compactMap({$0.displayText}) ?? []
-                )
+                if let results = main?.results {
+                    for item in results {
+                        let name = item.name ?? "lasagna"
+                        let type = item.tags?.first?.name ?? "dessert"
+                        let image = item.thumbnailURL ?? "lasagna"
+//                        d(key: "sections", item.sections)
+//                        d(key: "full", item)
+                        let ingredients = item.sections?[0].components?.compactMap { $0.ingredient?.displaySingular?.capitalized } ?? []
+                        let steps = item.instructions?.compactMap { $0.displayText } ?? []
+                        
+                        let apiRecipe = Recipe(
+                            id: id,
+                            name: name,
+                            type: type,
+                            image: image,
+                            ingredients: ingredients,
+                            steps: steps
+                        )
+                        
+                        fetchedData.append(apiRecipe)
+                        id += 1
+                    }
+                }
+                
                 DispatchQueue.main.async {
-                    self.datasource = [apiRecipe]
+                    self.datasource = fetchedData
                 }
             } else {
                 print(err!)
             }
         }
+    }
+    
+    func fetchDataFromSetting(){
+        switch dataType {
+        case .APIFetched:
+            fetchAPIData()
+        case .hardcodedMockData:
+            fetchMockData(completion: {})
+        case .savedCoreData:
+            print("hi")
+        }
+    }
+    
+    func changeDatasourceSettings(to:DataSourceType){
+        self.dataType = to
     }
 }

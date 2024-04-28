@@ -58,7 +58,8 @@ extension MainResponse {
 struct Result: Codable {
     var approvedAt: Int?
     var aspectRatio: String?
-    var beautyURL, brand, brandID, buzzID: JSONNull?
+    var beautyURL, brand, brandID: String?
+    var buzzID:Int?
     var canonicalID: String?
     var compilations: [Compilation]?
     var cookTimeMinutes: Int?
@@ -69,7 +70,7 @@ struct Result: Codable {
     @OptionallyDecodable var draftStatus: DraftStatus?
     var facebookPosts: [JSONAny]?
     var id: Int?
-    var inspiredByURL: JSONNull?
+    var inspiredByURL: String?
     var instructions: [Instruction]?
     var isAppOnly, isOneTop, isShoppable, isSubscriberContent: Bool?
     var keywords: String?
@@ -93,7 +94,7 @@ struct Result: Codable {
     var thumbnailURL: String?
     var tipsAndRatingsEnabled: Bool?
     var topics: [Topic]?
-    var totalTimeMinutes: JSONNull?
+    var totalTimeMinutes: Int?
     var totalTimeTier: TotalTimeTier?
     var updatedAt: Int?
     var userRatings: UserRatings?
@@ -130,7 +131,7 @@ struct Result: Codable {
         case nutritionVisibility = "nutrition_visibility"
         case originalVideoURL = "original_video_url"
         case prepTimeMinutes = "prep_time_minutes"
-        case price, promotion, renditions, sections = "section"
+        case price, promotion, renditions, sections = "sections"
         case seoPath = "seo_path"
         case seoTitle = "seo_title"
         case servingsNounPlural = "servings_noun_plural"
@@ -172,10 +173,10 @@ extension Result {
     func with(
         approvedAt: Int?? = nil,
         aspectRatio: String?? = nil,
-        beautyURL: JSONNull?? = nil,
-        brand: JSONNull?? = nil,
-        brandID: JSONNull?? = nil,
-        buzzID: JSONNull?? = nil,
+        beautyURL: String?? = nil,
+        brand: String?? = nil,
+        brandID: String?? = nil,
+        buzzID: Int?? = nil,
         canonicalID: String?? = nil,
         compilations: [Compilation]?? = nil,
         cookTimeMinutes: Int?? = nil,
@@ -186,7 +187,7 @@ extension Result {
         draftStatus: DraftStatus?? = nil,
         facebookPosts: [JSONAny]?? = nil,
         id: Int?? = nil,
-        inspiredByURL: JSONNull?? = nil,
+        inspiredByURL: String?? = nil,
         instructions: [Instruction]?? = nil,
         isAppOnly: Bool?? = nil,
         isOneTop: Bool?? = nil,
@@ -216,7 +217,7 @@ extension Result {
         thumbnailURL: String?? = nil,
         tipsAndRatingsEnabled: Bool?? = nil,
         topics: [Topic]?? = nil,
-        totalTimeMinutes: JSONNull?? = nil,
+        totalTimeMinutes: Int?? = nil,
         totalTimeTier: TotalTimeTier?? = nil,
         updatedAt: Int?? = nil,
         userRatings: UserRatings?? = nil,
@@ -295,7 +296,8 @@ extension Result {
 struct Compilation: Codable {
     var approvedAt: Int?
     var aspectRatio: String?
-    var beautyURL, buzzID: JSONNull?
+    var beautyURL:String?
+    var buzzID: Int?
     var canonicalID: String?
     @OptionallyDecodable var country: Country?
     var createdAt: Int?
@@ -356,8 +358,8 @@ extension Compilation {
     func with(
         approvedAt: Int?? = nil,
         aspectRatio: String?? = nil,
-        beautyURL: JSONNull?? = nil,
-        buzzID: JSONNull?? = nil,
+        beautyURL: String?? = nil,
+        buzzID: Int?? = nil,
         canonicalID: String?? = nil,
         country: Country?? = nil,
         createdAt: Int?? = nil,
@@ -514,10 +516,10 @@ extension Credit {
 }
 
 struct Instruction: Codable {
-    var appliance: JSONNull?
+    var appliance: String?
     var displayText: String?
     var endTime, id, position, startTime: Int?
-    var temperature: JSONNull?
+    var temperature: Int?
     
     enum CodingKeys: String, CodingKey {
         case appliance
@@ -546,13 +548,13 @@ extension Instruction {
     }
     
     func with(
-        appliance: JSONNull?? = nil,
+        appliance: String?? = nil,
         displayText: String?? = nil,
         endTime: Int?? = nil,
         id: Int?? = nil,
         position: Int?? = nil,
         startTime: Int?? = nil,
-        temperature: JSONNull?? = nil
+        temperature: Int?? = nil
     ) -> Instruction {
         return Instruction(
             appliance: appliance ?? self.appliance,
@@ -773,8 +775,9 @@ extension Rendition {
     // MARK: - Section
 struct Sectiong: Codable {
     var components: [Component]?
-    var name: JSONNull?
+    var name: String?
     var position: Int?
+    
 }
 
     // MARK: Section convenience initializers and mutators
@@ -797,7 +800,7 @@ extension Sectiong {
     
     func with(
         components: [Component]?? = nil,
-        name: JSONNull?? = nil,
+        name: String?? = nil,
         position: Int?? = nil
     ) -> Sectiong {
         return Sectiong(

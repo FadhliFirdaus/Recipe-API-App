@@ -15,7 +15,7 @@ struct APIManager{
             "X-RapidAPI-Host": "tasty.p.rapidapi.com"
         ]
         
-        let request = NSMutableURLRequest(url: NSURL(string: "https://tasty.p.rapidapi.com/recipes/list?from=0&size=1")! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -29,6 +29,12 @@ struct APIManager{
                 if let httpResponse = response as? HTTPURLResponse {
                     if let data = data {
                         do {
+                            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                            let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+                            if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
+                                print("Pretty printed JSON data:")
+                                print(prettyPrintedString)
+                            }
                             let mainResponse = try MainResponse(data: data)
                             completion(mainResponse, nil)
                         } catch {
@@ -40,6 +46,7 @@ struct APIManager{
                     }
                 }
             }
+
         })
         dataTask.resume()
     }

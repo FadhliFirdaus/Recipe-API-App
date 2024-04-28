@@ -31,9 +31,8 @@ struct RecipeDetailView: View {
                                                endPoint: .bottomTrailing)
                             )
                     } else {
-                            // Display a placeholder image with a progress indicator while loading
                         ZStack {
-                            Image("lasagna") // Placeholder image or default asset
+                            Image("lasagna") 
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: sw * 1.25, height: sh/2.5, alignment: .center)
@@ -46,13 +45,11 @@ struct RecipeDetailView: View {
                             ProgressView() // Overlay ProgressView
                         }
                         .onAppear {
-                            print(recipe.image)
                             loadImage(from: recipe.image)
                         }
                     }
                 } else {
-                        // Display a default image if the URL is invalid
-                    Image(recipe.image) // Placeholder image or default asset
+                    Image(recipe.image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: sw * 1.25, height: sh/2.5, alignment: .center)
@@ -106,8 +103,10 @@ struct RecipeDetailView: View {
                     Text("Menu")
                 }
                 
+                let formattedType = recipe.type.replacingOccurrences(of: "_", with: " ").capitalized
+
                 Section {
-                    Text("\(recipe.type)")
+                    Text("\(formattedType)")
                 } header: {
                     Text("Type")
                 }
