@@ -12,6 +12,7 @@ struct RecipeDetailView: View {
     
     @State var recipe: Recipe = ViewModel.mockRecipe
     @State private var recipeImage: UIImage? = nil
+    let viewModel:ViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -31,9 +32,8 @@ struct RecipeDetailView: View {
                                                endPoint: .bottomTrailing)
                             )
                     } else {
-                            // Display a placeholder image with a progress indicator while loading
                         ZStack {
-                            Image("lasagna") // Placeholder image or default asset
+                            Image("lasagna") 
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: sw * 1.25, height: sh/2.5, alignment: .center)
@@ -41,18 +41,17 @@ struct RecipeDetailView: View {
                                     LinearGradient(gradient: Gradient(colors: [.white.opacity(0.15), .white, .white, .white.opacity(0.15)]),
                                                    startPoint: .topLeading,
                                                    endPoint: .bottomTrailing)
-                                )
-                            
-                            ProgressView() // Overlay ProgressView
+                                ) // Overlay ProgressView
+                                .overlay{
+                                    ProgressView()
+                                }
                         }
                         .onAppear {
-                            print(recipe.image)
                             loadImage(from: recipe.image)
                         }
                     }
                 } else {
-                        // Display a default image if the URL is invalid
-                    Image(recipe.image) // Placeholder image or default asset
+                    Image(recipe.image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: sw * 1.25, height: sh/2.5, alignment: .center)
@@ -74,6 +73,11 @@ struct RecipeDetailView: View {
                         Spacer()
                         Button(action: {
                             recipe.isFavourite.toggle()
+                            if(recipe.isFavourite){
+                                viewModel.saveFavoriteRecipe(recipe: recipe)
+                            } else {
+                                viewModel.deleteData(recipe: recipe)
+                            }
                         }, label: {
                             if recipe.isFavourite {
                                 Image(systemName: "heart.circle.fill")
@@ -106,8 +110,10 @@ struct RecipeDetailView: View {
                     Text("Menu")
                 }
                 
+                let formattedType = recipe.type.replacingOccurrences(of: "_", with: " ").capitalized
+
                 Section {
-                    Text("\(recipe.type)")
+                    Text("\(formattedType)")
                 } header: {
                     Text("Type")
                 }
@@ -130,6 +136,7 @@ struct RecipeDetailView: View {
                 
             }
             .listStyle(GroupedListStyle())
+            .padding(.bottom, 12)
             Spacer()
             
         }
@@ -179,7 +186,7 @@ struct RecipeDetailView: View {
 
 
 #Preview {
-    RecipeDetailView(recipe: ViewModel.mockRecipe)
+    RecipeDetailView(recipe: ViewModel.mockRecipe, viewModel: ViewModel())
 }
 
 

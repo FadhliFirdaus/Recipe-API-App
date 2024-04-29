@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7142F8872BDDB59100D9D461 /* DebugUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7142F8862BDDB59100D9D461 /* DebugUtils.swift */; };
 		717481662BDBA889007AB546 /* PickerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 717481652BDBA889007AB546 /* PickerVC.storyboard */; };
 		717481682BDBA8CC007AB546 /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717481672BDBA8CC007AB546 /* PickerVC.swift */; };
 		7174816A2BDBAD3E007AB546 /* PickerVCWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717481692BDBAD3E007AB546 /* PickerVCWrapper.swift */; };
+		71A0DC282BDF6081001CE029 /* FavouriteRecipes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71A0DC262BDF6081001CE029 /* FavouriteRecipes.xcdatamodeld */; };
 		71C589DE2BDAF32300888608 /* Recipe_API_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C589DD2BDAF32300888608 /* Recipe_API_AppApp.swift */; };
 		71C589E02BDAF32300888608 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C589DF2BDAF32300888608 /* ContentView.swift */; };
 		71C589E22BDAF32400888608 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71C589E12BDAF32400888608 /* Assets.xcassets */; };
@@ -27,9 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7142F8862BDDB59100D9D461 /* DebugUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugUtils.swift; sourceTree = "<group>"; };
 		717481652BDBA889007AB546 /* PickerVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerVC.storyboard; sourceTree = "<group>"; };
 		717481672BDBA8CC007AB546 /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
 		717481692BDBAD3E007AB546 /* PickerVCWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVCWrapper.swift; sourceTree = "<group>"; };
+		71A0DC272BDF6081001CE029 /* FavouriteRecipes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavouriteRecipes.xcdatamodel; sourceTree = "<group>"; };
 		71C589DA2BDAF32300888608 /* Recipe API App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe API App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71C589DD2BDAF32300888608 /* Recipe_API_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe_API_AppApp.swift; sourceTree = "<group>"; };
 		71C589DF2BDAF32300888608 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +66,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71A0DC1E2BDF554C001CE029 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				71C589F12BDAF4EE00888608 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		71A0DC1F2BDF5556001CE029 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				71C589ED2BDAF46900888608 /* Helper.swift */,
+				71C589F82BDAF72200888608 /* Extension.swift */,
+				71C589FA2BDAF77D00888608 /* Enum.swift */,
+				7142F8862BDDB59100D9D461 /* DebugUtils.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		71A0DC202BDF5562001CE029 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				717481692BDBAD3E007AB546 /* PickerVCWrapper.swift */,
+				717481652BDBA889007AB546 /* PickerVC.storyboard */,
+				717481672BDBA8CC007AB546 /* PickerVC.swift */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		71A0DC212BDF5573001CE029 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71C589FE2BDB976D00888608 /* RecipeDetailView.swift */,
+				71C589FC2BDB018100888608 /* HomeView.swift */,
+				71C589EB2BDAF36900888608 /* CardRecipeRow.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		71A0DC222BDF5580001CE029 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				71C589EF2BDAF4C900888608 /* Recipe.swift */,
+				71D289582BDBD450003E8FD9 /* APIRecipe.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		71A0DC232BDF5590001CE029 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				71D289562BDBD27D003E8FD9 /* APIManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		71A0DC242BDF55A9001CE029 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				71C589DD2BDAF32300888608 /* Recipe_API_AppApp.swift */,
+				71C589DF2BDAF32300888608 /* ContentView.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		71A0DC252BDF606F001CE029 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				71A0DC262BDF6081001CE029 /* FavouriteRecipes.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		71C589D12BDAF32300888608 = {
 			isa = PBXGroup;
 			children = (
@@ -81,21 +158,14 @@
 		71C589DC2BDAF32300888608 /* Recipe API App */ = {
 			isa = PBXGroup;
 			children = (
-				71C589DD2BDAF32300888608 /* Recipe_API_AppApp.swift */,
-				71C589DF2BDAF32300888608 /* ContentView.swift */,
-				71C589ED2BDAF46900888608 /* Helper.swift */,
-				71C589EF2BDAF4C900888608 /* Recipe.swift */,
-				71D289582BDBD450003E8FD9 /* APIRecipe.swift */,
-				71C589EB2BDAF36900888608 /* CardRecipeRow.swift */,
-				71C589FC2BDB018100888608 /* HomeView.swift */,
-				717481692BDBAD3E007AB546 /* PickerVCWrapper.swift */,
-				71D289562BDBD27D003E8FD9 /* APIManager.swift */,
-				71C589FE2BDB976D00888608 /* RecipeDetailView.swift */,
-				71C589F12BDAF4EE00888608 /* ViewModel.swift */,
-				71C589F82BDAF72200888608 /* Extension.swift */,
-				71C589FA2BDAF77D00888608 /* Enum.swift */,
-				717481652BDBA889007AB546 /* PickerVC.storyboard */,
-				717481672BDBA8CC007AB546 /* PickerVC.swift */,
+				71A0DC242BDF55A9001CE029 /* Application */,
+				71A0DC232BDF5590001CE029 /* Services */,
+				71A0DC222BDF5580001CE029 /* Model */,
+				71A0DC212BDF5573001CE029 /* View */,
+				71A0DC252BDF606F001CE029 /* CoreData */,
+				71A0DC202BDF5562001CE029 /* Storyboard */,
+				71A0DC1E2BDF554C001CE029 /* ViewModel */,
+				71A0DC1F2BDF5556001CE029 /* Misc */,
 				71C589F32BDAF6C800888608 /* Fonts */,
 				71C589E12BDAF32400888608 /* Assets.xcassets */,
 			);
@@ -189,10 +259,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7142F8872BDDB59100D9D461 /* DebugUtils.swift in Sources */,
 				71C589FD2BDB018100888608 /* HomeView.swift in Sources */,
 				71C589FF2BDB976D00888608 /* RecipeDetailView.swift in Sources */,
 				71C589E02BDAF32300888608 /* ContentView.swift in Sources */,
 				71C589EC2BDAF36900888608 /* CardRecipeRow.swift in Sources */,
+				71A0DC282BDF6081001CE029 /* FavouriteRecipes.xcdatamodeld in Sources */,
 				71C589FB2BDAF77D00888608 /* Enum.swift in Sources */,
 				71C589F92BDAF72200888608 /* Extension.swift in Sources */,
 				71C589DE2BDAF32300888608 /* Recipe_API_AppApp.swift in Sources */,
@@ -427,6 +499,19 @@
 			productName = OptionallyDecodable;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		71A0DC262BDF6081001CE029 /* FavouriteRecipes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				71A0DC272BDF6081001CE029 /* FavouriteRecipes.xcdatamodel */,
+			);
+			currentVersion = 71A0DC272BDF6081001CE029 /* FavouriteRecipes.xcdatamodel */;
+			path = FavouriteRecipes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 71C589D22BDAF32300888608 /* Project object */;
 }

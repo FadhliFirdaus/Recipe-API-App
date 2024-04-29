@@ -10,26 +10,35 @@ import UIKit
 import SwiftUI
 
 class PickerVC:UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
-        
+    @ObservedObject var viewModel = ViewModel.shared
+    var presentationMode: PresentationMode?
+    var dismissCallback: (() -> Void)?
+
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return viewModel.recipeTypes.count
+        return DataSourceType.allCases.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return viewModel.recipeTypes[row]
+        return DataSourceType.allCases[row].description
     }
-    
+
     @IBAction func filterButton(_ sender: Any) {
-        print("hi")
+        if let selectedRow = typePicker?.selectedRow(inComponent: 0) {
+            let selectedString = DataSourceType.allCases[selectedRow].description
+            if let selectedType = DataSourceType.fromString(selectedString) {
+                viewModel.changeDatasourceSettings(to: selectedType)
+            }
+        }
+        viewModel.fetchDataWithCurrentSetting()
+        self.dismissCallback?()
     }
+    
     @IBOutlet weak var typePicker: UIPickerView!
-    
-    
-    @ObservedObject var viewModel = ViewModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()

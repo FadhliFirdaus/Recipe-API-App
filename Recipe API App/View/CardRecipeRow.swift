@@ -10,6 +10,7 @@ import SwiftUI
 struct CardRecipeRow: View {
     @State var recipe:Recipe
     @State private var imageData: Data?
+    let viewModel:ViewModel
     var size:CGFloat = 120
 
     var body: some View {
@@ -19,7 +20,12 @@ struct CardRecipeRow: View {
                     if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .scaleEffect(1.6)
+                            .frame(width: sw/2.5, height:size )
+                            .mask {
+                                UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
+                            }
                     } else {
                         Text("Loading...")
                             .onAppear(perform: loadImage)
@@ -31,9 +37,6 @@ struct CardRecipeRow: View {
                         .frame(width: sw/2.5, height:size )
                         .mask {
                             UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
-                                .onAppear(perform: {
-                                    print("not valid\(recipe.image)")
-                                })
                         }
                 }
                 HStack {
@@ -44,14 +47,16 @@ struct CardRecipeRow: View {
                             Text("\(recipe.name)")
                                 .fontWeight(.bold)
                                 .lineLimit(1)
-                                .customFont(.georgia, size: 16)
-                                .fixedSize()
+                                .truncationMode(.tail) // Truncates text at the end
+                                .customFont(.georgia, size: 15)
                                 .background {
                                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 6, bottomLeading: 0, bottomTrailing: 0, topTrailing: 12))
                                         .foregroundColor(.white)
                                         .scaleEffect(1.2)
                                 }
                                 .offset(x: sw/10)
+                                .frame(maxWidth: sw/1.3)
+
                         }
                     }
                 }
@@ -68,12 +73,17 @@ struct CardRecipeRow: View {
             @State var imageSymbol = recipe.isFavourite ? "heart.fill":"heart"
             Button {
                 recipe.isFavourite.toggle()
+                if(recipe.isFavourite){
+                    viewModel.saveFavoriteRecipe(recipe: recipe)
+                } else {
+                    viewModel.deleteData(recipe: recipe)
+                }
             } label: {
                 Image(systemName: imageSymbol)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24, alignment: .center)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(recipe.isFavourite ? .red:.gray)
             }
             .offset(CGSize(width: sw/2 - 33 , height: size/2 - 21))
         }
@@ -85,9 +95,7 @@ struct CardRecipeRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(Color(hex: 0xFFFFFF))
         }
-        
         .padding([.leading, .trailing], 12)
-
     }
     
     
@@ -114,5 +122,5 @@ struct CardRecipeRow: View {
 }
 
 #Preview {
-    CardRecipeRow(recipe: .init(id: 1, name: "lasagna", type: "", image: "lasagna", ingredients: [], steps: []))
+    CardRecipeRow(recipe: .init(id: 1, name: "lasagna", type: "", image: "lasagna", isFavourite: false, ingredients: [], steps: []), viewModel: ViewModel())
 }
