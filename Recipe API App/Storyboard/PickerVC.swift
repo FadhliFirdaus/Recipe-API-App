@@ -11,6 +11,9 @@ import SwiftUI
 
 class PickerVC:UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     @ObservedObject var viewModel = ViewModel.shared
+    var presentationMode: PresentationMode?
+    var dismissCallback: (() -> Void)?
+
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -31,7 +34,8 @@ class PickerVC:UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
                 viewModel.changeDatasourceSettings(to: selectedType)
             }
         }
-        print(viewModel.dataType)
+        viewModel.fetchDataWithCurrentSetting()
+        self.dismissCallback?()
     }
     
     @IBOutlet weak var typePicker: UIPickerView!

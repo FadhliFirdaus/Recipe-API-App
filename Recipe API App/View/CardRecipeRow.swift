@@ -10,6 +10,7 @@ import SwiftUI
 struct CardRecipeRow: View {
     @State var recipe:Recipe
     @State private var imageData: Data?
+    let viewModel:ViewModel
     var size:CGFloat = 120
 
     var body: some View {
@@ -20,7 +21,7 @@ struct CardRecipeRow: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFill()
-                            .scaleEffect(1.5)
+                            .scaleEffect(1.6)
                             .frame(width: sw/2.5, height:size )
                             .mask {
                                 UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 12, bottomLeading: 12, bottomTrailing: 0, topTrailing: 0))
@@ -54,7 +55,7 @@ struct CardRecipeRow: View {
                                         .scaleEffect(1.2)
                                 }
                                 .offset(x: sw/10)
-                                .frame(maxWidth: sw/1.25)
+                                .frame(maxWidth: sw/1.3)
 
                         }
                     }
@@ -72,12 +73,17 @@ struct CardRecipeRow: View {
             @State var imageSymbol = recipe.isFavourite ? "heart.fill":"heart"
             Button {
                 recipe.isFavourite.toggle()
+                if(recipe.isFavourite){
+                    viewModel.saveFavoriteRecipe(recipe: recipe)
+                } else {
+                    viewModel.deleteData(recipe: recipe)
+                }
             } label: {
                 Image(systemName: imageSymbol)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24, alignment: .center)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(recipe.isFavourite ? .red:.gray)
             }
             .offset(CGSize(width: sw/2 - 33 , height: size/2 - 21))
         }
@@ -116,5 +122,5 @@ struct CardRecipeRow: View {
 }
 
 #Preview {
-    CardRecipeRow(recipe: .init(id: 1, name: "lasagna", type: "", image: "lasagna", ingredients: [], steps: []))
+    CardRecipeRow(recipe: .init(id: 1, name: "lasagna", type: "", image: "lasagna", isFavourite: false, ingredients: [], steps: []), viewModel: ViewModel())
 }

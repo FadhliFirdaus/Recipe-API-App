@@ -1277,6 +1277,10 @@ class JSONNull: Codable, Hashable {
         return 0
     }
     
+    func hash(into hasher: inout Hasher) {
+        
+    }
+    
     public init() {}
     
     public required init(from decoder: Decoder) throws {

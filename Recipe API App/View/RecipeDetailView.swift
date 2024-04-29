@@ -12,6 +12,7 @@ struct RecipeDetailView: View {
     
     @State var recipe: Recipe = ViewModel.mockRecipe
     @State private var recipeImage: UIImage? = nil
+    let viewModel:ViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -40,9 +41,10 @@ struct RecipeDetailView: View {
                                     LinearGradient(gradient: Gradient(colors: [.white.opacity(0.15), .white, .white, .white.opacity(0.15)]),
                                                    startPoint: .topLeading,
                                                    endPoint: .bottomTrailing)
-                                )
-                            
-                            ProgressView() // Overlay ProgressView
+                                ) // Overlay ProgressView
+                                .overlay{
+                                    ProgressView()
+                                }
                         }
                         .onAppear {
                             loadImage(from: recipe.image)
@@ -71,6 +73,11 @@ struct RecipeDetailView: View {
                         Spacer()
                         Button(action: {
                             recipe.isFavourite.toggle()
+                            if(recipe.isFavourite){
+                                viewModel.saveFavoriteRecipe(recipe: recipe)
+                            } else {
+                                viewModel.deleteData(recipe: recipe)
+                            }
                         }, label: {
                             if recipe.isFavourite {
                                 Image(systemName: "heart.circle.fill")
@@ -129,6 +136,7 @@ struct RecipeDetailView: View {
                 
             }
             .listStyle(GroupedListStyle())
+            .padding(.bottom, 12)
             Spacer()
             
         }
@@ -178,7 +186,7 @@ struct RecipeDetailView: View {
 
 
 #Preview {
-    RecipeDetailView(recipe: ViewModel.mockRecipe)
+    RecipeDetailView(recipe: ViewModel.mockRecipe, viewModel: ViewModel())
 }
 
 

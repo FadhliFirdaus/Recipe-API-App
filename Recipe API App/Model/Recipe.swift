@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Recipe:Identifiable{
+struct Recipe:Identifiable, Hashable{
     let id: Int
     let name: String
     let type: String
@@ -16,12 +16,12 @@ struct Recipe:Identifiable{
     let ingredients: [String]
     let steps: [String]
     
-    init(id: Int, name: String, type: String, image: String, ingredients: [String], steps: [String]) {
+    init(id: Int, name: String, type: String, image: String, isFavourite:Bool, ingredients: [String], steps: [String]) {
         self.id = id
         self.name = name
         self.type = type
         self.image = image
-        self.isFavourite = false
+        self.isFavourite = isFavourite
         self.ingredients = ingredients
         self.steps = steps
     }

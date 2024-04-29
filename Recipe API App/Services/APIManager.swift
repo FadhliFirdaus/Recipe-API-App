@@ -26,15 +26,15 @@ struct APIManager{
             if let error = error {
                 completion(nil, error)
             } else {
-                if let httpResponse = response as? HTTPURLResponse {
+                if response is HTTPURLResponse {
                     if let data = data {
                         do {
                             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-                            let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-                            if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
-                                print("Pretty printed JSON data:")
-                                print(prettyPrintedString)
-                            }
+//                            let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+//                            if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
+//                                print("Pretty printed JSON data:")
+//                                print(prettyPrintedString)
+//                            }
                             let mainResponse = try MainResponse(data: data)
                             completion(mainResponse, nil)
                         } catch {
